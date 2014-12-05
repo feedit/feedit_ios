@@ -1,0 +1,115 @@
+//
+//  ViewController.m
+//  feedit_ios
+//
+//  Created by xdf on 12/5/14.
+//  Copyright (c) 2014 xdf. All rights reserved.
+//
+
+#import "ViewController.h"
+#import "ShowArticle.h"
+#import "SwapData.h"
+
+@interface ViewController ()
+
+@end
+
+@implementation ViewController
+
+NSString *targetUrl;
+NSString *targetTitle;
+UIWebView *webView;
+UIActivityIndicatorView *activityIndicator;
+
+- (void)loadArticle: (NSString *) title : (NSString *) url {
+    ShowArticle *showArticleController=[[ShowArticle alloc]init];
+    showArticleController.navigationItem.title = url;
+    SwapData *swapData = [[SwapData alloc] init];
+    swapData.targetUrl = url;
+    swapData.targetTitle = title;
+    showArticleController.swapData = swapData;
+    [self.navigationController pushViewController:showArticleController animated:YES];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title = @"Feedit";
+    // Do any additional setup after loading the view, typically from a nib
+    [self loadWebView];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)loadWebView {
+    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [webView setScalesPageToFit:YES];
+    [webView setDelegate:self];
+    [self.view addSubview: webView];
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"assets/index" ofType:@"html"];
+    NSString* html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    NSURL *baseURL = [NSURL fileURLWithPath:path];
+    [webView loadHTMLString:html baseURL:baseURL];
+}
+
+- (void) webViewDidStartLoad:(UIWebView *)webView {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [view setTag:108];
+    [view setBackgroundColor:[UIColor blackColor]];
+    [view setAlpha:0.2];
+    [self.view addSubview:view];
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [activityIndicator setCenter:view.center];
+    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+    [view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
+    NSLog(@"webViewDidStartLoad");
+}
+- (void) webViewDidFinishLoad:(UIWebView *)webView {
+    NSError *error;
+    [activityIndicator stopAnimating];
+    UIView *view = (UIView*)[self.view viewWithTag:108];
+    [view removeFromSuperview];
+    NSURL *url = [NSURL URLWithString:@"http://xudafeng.com/feedit"];
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+    NSDictionary *djson = [json objectForKey:@"data"];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:djson options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSLog(@"jsonobject: %@", jsonString);
+    NSString *str = @"";
+    jsonString = [str stringByAppendingFormat:@"Ready(%@)", jsonString];
+    NSLog(@"%@", jsonString);
+    [webView stringByEvaluatingJavaScriptFromString:jsonString];
+    NSLog(@"webViewDidFinishLoad");
+}
+- (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [activityIndicator stopAnimating];
+    UIView *view = (UIView*)[self.view viewWithTag:108];
+    [view removeFromSuperview];
+    NSLog(@"didFailLoadWithError:%@", error);
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSURL *url = request.mainDocumentURL;
+    NSString *string=[url absoluteString];
+    NSString *str = [string substringToIndex:4];
+    
+    if ([str  isEqual: @"http"]) {
+        NSLog(@"http");
+        NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"window.targetTitle"];
+        NSString *url = [webView stringByEvaluatingJavaScriptFromString:@"window.targetUrl"];
+        [self loadArticle : title : url];
+        return false;
+    } else if ([str  isEqual: @"file"]) {
+        NSLog(@"file");
+        return true;
+    } else {
+        NSLog(@"other");
+    }
+    return true;
+}
+@end
