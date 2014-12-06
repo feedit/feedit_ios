@@ -43,7 +43,13 @@ UIActivityIndicatorView *activityIndicator;
     // Dispose of any resources that can be recreated.
 }
 
+-(void) refresh {
+    [webView reload];
+}
+
 - (void)loadWebView {
+    UIBarButtonItem *refreshButton=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
+    self.navigationItem.rightBarButtonItems=@[refreshButton];
     webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [webView setScalesPageToFit:YES];
     [webView setDelegate:self];
