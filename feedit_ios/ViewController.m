@@ -16,12 +16,13 @@
 
 @implementation ViewController
 
+NSString *API = @"http://xudafeng.com/feedit";
 NSString *targetUrl;
 NSString *targetTitle;
 UIWebView *webView;
 UIActivityIndicatorView *activityIndicator;
 
-- (void)loadArticle: (NSString *) title : (NSString *) url {
+- (void) loadArticle: (NSString *) title : (NSString *) url {
     ShowArticle *showArticleController=[[ShowArticle alloc]init];
     showArticleController.navigationItem.title = url;
     SwapData *swapData = [[SwapData alloc] init];
@@ -31,25 +32,29 @@ UIActivityIndicatorView *activityIndicator;
     [self.navigationController pushViewController:showArticleController animated:YES];
 }
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"Feedit";
     // Do any additional setup after loading the view, typically from a nib
+    [self setNavButton];
     [self loadWebView];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void) didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(void) refresh {
-    [webView reload];
+- (void) refresh {
+    [self getData];
+}
+
+- (void) setNavButton {
+    UIBarButtonItem *refreshButton=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
+    self.navigationItem.rightBarButtonItems=@[refreshButton];
 }
 
 - (void)loadWebView {
-    UIBarButtonItem *refreshButton=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
-    self.navigationItem.rightBarButtonItems=@[refreshButton];
     webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [webView setScalesPageToFit:YES];
     [webView setDelegate:self];
@@ -73,12 +78,10 @@ UIActivityIndicatorView *activityIndicator;
     [activityIndicator startAnimating];
     NSLog(@"webViewDidStartLoad");
 }
-- (void) webViewDidFinishLoad:(UIWebView *)webView {
+
+- (void) getData {
     NSError *error;
-    [activityIndicator stopAnimating];
-    UIView *view = (UIView*)[self.view viewWithTag:108];
-    [view removeFromSuperview];
-    NSURL *url = [NSURL URLWithString:@"http://xudafeng.com/feedit"];
+    NSURL *url = [NSURL URLWithString:API];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
@@ -90,6 +93,13 @@ UIActivityIndicatorView *activityIndicator;
     jsonString = [str stringByAppendingFormat:@"Ready(%@)", jsonString];
     NSLog(@"%@", jsonString);
     [webView stringByEvaluatingJavaScriptFromString:jsonString];
+}
+
+- (void) webViewDidFinishLoad:(UIWebView *)webView {
+    [self getData];
+    [activityIndicator stopAnimating];
+    UIView *view = (UIView*)[self.view viewWithTag:108];
+    [view removeFromSuperview];
     NSLog(@"webViewDidFinishLoad");
 }
 - (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
