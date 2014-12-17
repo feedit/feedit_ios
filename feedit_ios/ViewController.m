@@ -7,8 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "ShowArticle.h"
-#import "SwapData.h"
 
 @interface ViewController ()
 
@@ -18,38 +16,25 @@
 
 NSString *API = @"http://xudafeng.com/feedit";
 NSString *targetUrl;
-NSString *targetTitle;
 UIWebView *webView;
 UIActivityIndicatorView *activityIndicator;
 
-- (void) loadArticle: (NSString *) title : (NSString *) url {
-    ShowArticle *showArticleController=[[ShowArticle alloc]init];
-    showArticleController.navigationItem.title = url;
-    SwapData *swapData = [[SwapData alloc] init];
-    swapData.targetUrl = url;
-    swapData.targetTitle = title;
-    showArticleController.swapData = swapData;
-    [self.navigationController pushViewController:showArticleController animated:YES];
-}
-
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"Feedit";
-    // Do any additional setup after loading the view, typically from a nib
     [self setNavButton];
     [self loadWebView];
 }
 
-- (void) didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void) refresh {
+- (void)refresh {
     [self getData];
 }
-
-- (void) setNavButton {
+- (void)setNavButton {
+    self.navigationItem.title = @"Feedit";
     UIBarButtonItem *refreshButton=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
     self.navigationItem.rightBarButtonItems=@[refreshButton];
 }
@@ -65,7 +50,7 @@ UIActivityIndicatorView *activityIndicator;
     [webView loadHTMLString:html baseURL:baseURL];
 }
 
-- (void) webViewDidStartLoad:(UIWebView *)webView {
+- (void)webViewDidStartLoad:(UIWebView *)webView {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [view setTag:108];
     [view setBackgroundColor:[UIColor blackColor]];
@@ -79,7 +64,7 @@ UIActivityIndicatorView *activityIndicator;
     NSLog(@"webViewDidStartLoad");
 }
 
-- (void) getData {
+- (void)getData {
     NSError *error;
     NSURL *url = [NSURL URLWithString:API];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
@@ -95,14 +80,14 @@ UIActivityIndicatorView *activityIndicator;
     [webView stringByEvaluatingJavaScriptFromString:jsonString];
 }
 
-- (void) webViewDidFinishLoad:(UIWebView *)webView {
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self getData];
     [activityIndicator stopAnimating];
     UIView *view = (UIView*)[self.view viewWithTag:108];
     [view removeFromSuperview];
     NSLog(@"webViewDidFinishLoad");
 }
-- (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [activityIndicator stopAnimating];
     UIView *view = (UIView*)[self.view viewWithTag:108];
     [view removeFromSuperview];
@@ -116,9 +101,8 @@ UIActivityIndicatorView *activityIndicator;
     
     if ([str  isEqual: @"http"]) {
         NSLog(@"http");
-        NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"window.targetTitle"];
         NSString *url = [webView stringByEvaluatingJavaScriptFromString:@"window.targetUrl"];
-        [self loadArticle : title : url];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         return false;
     } else if ([str  isEqual: @"file"]) {
         NSLog(@"file");
