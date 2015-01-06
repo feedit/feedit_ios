@@ -9,18 +9,16 @@
 #import "ViewController.h"
 
 @interface ViewController ()
-
+@property (strong, nonatomic) NSString *API;
+@property (strong, nonatomic) UIWebView *webView;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation ViewController
 
-NSString *API = @"http://xudafeng.com/feedit";
-NSString *targetUrl;
-UIWebView *webView;
-UIActivityIndicatorView *activityIndicator;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.API = @"http://xudafeng.com/feedit";
     [self setNavButton];
     [self loadWebView];
 }
@@ -40,14 +38,14 @@ UIActivityIndicatorView *activityIndicator;
 }
 
 - (void)loadWebView {
-    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [webView setScalesPageToFit:YES];
-    [webView setDelegate:self];
-    [self.view addSubview: webView];
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.webView setScalesPageToFit:YES];
+    [self.webView setDelegate:self];
+    [self.view addSubview: self.webView];
     NSString* path = [[NSBundle mainBundle] pathForResource:@"assets/index" ofType:@"html"];
     NSString* html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     NSURL *baseURL = [NSURL fileURLWithPath:path];
-    [webView loadHTMLString:html baseURL:baseURL];
+    [self.webView loadHTMLString:html baseURL:baseURL];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
@@ -56,17 +54,17 @@ UIActivityIndicatorView *activityIndicator;
     [view setBackgroundColor:[UIColor blackColor]];
     [view setAlpha:0.2];
     [self.view addSubview:view];
-    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [activityIndicator setCenter:view.center];
-    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
-    [view addSubview:activityIndicator];
-    [activityIndicator startAnimating];
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.activityIndicator setCenter:view.center];
+    [self.activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+    [view addSubview: self.activityIndicator];
+    [self.activityIndicator startAnimating];
     NSLog(@"webViewDidStartLoad");
 }
 
 - (void)getData {
     NSError *error;
-    NSURL *url = [NSURL URLWithString:API];
+    NSURL *url = [NSURL URLWithString: self.API];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
@@ -77,18 +75,18 @@ UIActivityIndicatorView *activityIndicator;
     NSString *str = @"";
     jsonString = [str stringByAppendingFormat:@"Ready(%@)", jsonString];
     NSLog(@"%@", jsonString);
-    [webView stringByEvaluatingJavaScriptFromString:jsonString];
+    [self.webView stringByEvaluatingJavaScriptFromString:jsonString];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self getData];
-    [activityIndicator stopAnimating];
+    [self.activityIndicator stopAnimating];
     UIView *view = (UIView*)[self.view viewWithTag:108];
     [view removeFromSuperview];
     NSLog(@"webViewDidFinishLoad");
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [activityIndicator stopAnimating];
+    [self.activityIndicator stopAnimating];
     UIView *view = (UIView*)[self.view viewWithTag:108];
     [view removeFromSuperview];
     NSLog(@"didFailLoadWithError:%@", error);
