@@ -26,7 +26,7 @@ var exec = function(data, global) {
   var html = !!content.innerHTML.length;
   var tplElm = $('#template')[0].innerHTML;
   var tpl = grace.compile(tplElm);
-  var API = 'http://xudafeng.com/feedit/read.php';
+  var API = 'http://xudafeng.com/feedit/api';
   var node = tpl({
     list: data
   });
@@ -39,13 +39,15 @@ var exec = function(data, global) {
   document.addEventListener('click', function(e) {
     var target = e.target;
     if (target.nodeName === 'BUTTON') {
-      var id = target.id.split('button-')[1];
-      id = parseInt(id);
+      var id = target.id;
       var url = target.getAttribute('data-url');
       var title = target.getAttribute('data-title');
       //ajax
       JSONP(API, {
-        id: id
+        id: id,
+        type: 'update',
+        read: 'true',
+        ua: 'mobile'
       }, 'callback', function(data) {
         if (data) {
           if (data.success) {
@@ -53,6 +55,8 @@ var exec = function(data, global) {
             global.targetTitle = title;
             global.targetUrl = url;
             location.href = url;
+          } else {
+            alert(data.errorMsg);
           }
         }
       });
@@ -61,8 +65,12 @@ var exec = function(data, global) {
 }
 
 if (ios) {
-  this.Ready = function(data) {
-    exec(data, window);
+  this.Ready = function(d) {
+    if (d.success) {
+      exec(JSON.parse(d.data), window);
+    } else {
+      alert('error');
+    }
   };
 } else if(android) {
   data = dataFromInterface.get('data');

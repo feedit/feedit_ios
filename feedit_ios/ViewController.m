@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.API = @"http://xudafeng.com/feedit";
+    self.API = @"http://xudafeng.com/feedit/api?type=get&unread=true";
     [self setNavButton];
     [self loadWebView];
 }
@@ -65,15 +65,13 @@
 - (void)getData {
     NSError *error;
     NSURL *url = [NSURL URLWithString: self.API];
-    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval: 10];
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    NSDictionary *djson = [json objectForKey:@"data"];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:djson options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    NSLog(@"jsonobject: %@", jsonString);
-    NSString *str = @"";
-    jsonString = [str stringByAppendingFormat:@"Ready(%@)", jsonString];
+    NSString *str = @"Ready";
+    jsonString = [str stringByAppendingFormat:@"(%@)", jsonString];
     NSLog(@"%@", jsonString);
     [self.webView stringByEvaluatingJavaScriptFromString:jsonString];
 }
