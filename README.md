@@ -1,4 +1,3 @@
-feedit-ios
-==========
+# feedit_ios
 
 feedit ios
