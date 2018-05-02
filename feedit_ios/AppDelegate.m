@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 
+@import Firebase;
+
 @interface AppDelegate ()
 
 @end
@@ -25,6 +27,7 @@
     ViewController *controller = [[ViewController  alloc] init];
     [nav pushViewController:controller animated:YES];
     [self.window makeKeyAndVisible];
+    [FIRApp configure];
     return YES;
 }
 
