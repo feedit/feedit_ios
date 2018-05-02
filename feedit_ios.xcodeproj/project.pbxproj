@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00CCB8F87B914D48D8C45ABB /* libPods-feedit_iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6105244161BF39A5CE9F07 /* libPods-feedit_iosTests.a */; };
 		637E50681A79D07500EC4BA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 637E50671A79D07500EC4BA1 /* main.m */; };
 		637E506B1A79D07500EC4BA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 637E506A1A79D07500EC4BA1 /* AppDelegate.m */; };
 		637E506E1A79D07500EC4BA1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 637E506D1A79D07500EC4BA1 /* ViewController.m */; };
@@ -15,6 +16,8 @@
 		637E50761A79D07500EC4BA1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 637E50741A79D07500EC4BA1 /* LaunchScreen.xib */; };
 		637E50821A79D07500EC4BA1 /* feedit_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 637E50811A79D07500EC4BA1 /* feedit_iosTests.m */; };
 		637E508C1A79D1A400EC4BA1 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 637E508B1A79D1A400EC4BA1 /* assets */; };
+		63A3F40A20995CF600BFD2BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63A3F40920995CF600BFD2BD /* GoogleService-Info.plist */; };
+		982EA6CFEC72B569180858A3 /* libPods-feedit_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F3899B51DD758971C069DA2 /* libPods-feedit_ios.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +31,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		251DADFF49DF022CEECCDE7D /* Pods-feedit_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-feedit_ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-feedit_ios/Pods-feedit_ios.debug.xcconfig"; sourceTree = "<group>"; };
+		33E58A75E2ED72B8A2B58C29 /* Pods-feedit_iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-feedit_iosTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-feedit_iosTests/Pods-feedit_iosTests.release.xcconfig"; sourceTree = "<group>"; };
+		5F3899B51DD758971C069DA2 /* libPods-feedit_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-feedit_ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		637E50621A79D07500EC4BA1 /* feedit_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = feedit_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		637E50661A79D07500EC4BA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		637E50671A79D07500EC4BA1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -42,6 +48,10 @@
 		637E50801A79D07500EC4BA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		637E50811A79D07500EC4BA1 /* feedit_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = feedit_iosTests.m; sourceTree = "<group>"; };
 		637E508B1A79D1A400EC4BA1 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		63A3F40920995CF600BFD2BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "feedit_ios/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		77F28747691C123023ED0B90 /* Pods-feedit_iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-feedit_iosTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-feedit_iosTests/Pods-feedit_iosTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7B6105244161BF39A5CE9F07 /* libPods-feedit_iosTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-feedit_iosTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA67FBB36AE80D0AFCA1386B /* Pods-feedit_ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-feedit_ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-feedit_ios/Pods-feedit_ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				982EA6CFEC72B569180858A3 /* libPods-feedit_ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,19 +67,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00CCB8F87B914D48D8C45ABB /* libPods-feedit_iosTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50189C635CBFF76F57AE2958 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5F3899B51DD758971C069DA2 /* libPods-feedit_ios.a */,
+				7B6105244161BF39A5CE9F07 /* libPods-feedit_iosTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		637E50591A79D07500EC4BA1 = {
 			isa = PBXGroup;
 			children = (
+				63A3F40920995CF600BFD2BD /* GoogleService-Info.plist */,
 				637E508B1A79D1A400EC4BA1 /* assets */,
 				637E50641A79D07500EC4BA1 /* feedit_ios */,
 				637E507E1A79D07500EC4BA1 /* feedit_iosTests */,
 				637E50631A79D07500EC4BA1 /* Products */,
+				A3924924CC31CFECCB39A931 /* Pods */,
+				50189C635CBFF76F57AE2958 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,6 +146,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		A3924924CC31CFECCB39A931 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				251DADFF49DF022CEECCDE7D /* Pods-feedit_ios.debug.xcconfig */,
+				EA67FBB36AE80D0AFCA1386B /* Pods-feedit_ios.release.xcconfig */,
+				77F28747691C123023ED0B90 /* Pods-feedit_iosTests.debug.xcconfig */,
+				33E58A75E2ED72B8A2B58C29 /* Pods-feedit_iosTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -129,6 +164,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 637E50851A79D07500EC4BA1 /* Build configuration list for PBXNativeTarget "feedit_ios" */;
 			buildPhases = (
+				9B5FC96808964938B4A77B86 /* [CP] Check Pods Manifest.lock */,
 				637E505E1A79D07500EC4BA1 /* Sources */,
 				637E505F1A79D07500EC4BA1 /* Frameworks */,
 				637E50601A79D07500EC4BA1 /* Resources */,
@@ -146,6 +182,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 637E50881A79D07500EC4BA1 /* Build configuration list for PBXNativeTarget "feedit_iosTests" */;
 			buildPhases = (
+				6B4C3A622D34865C801E08FD /* [CP] Check Pods Manifest.lock */,
 				637E50771A79D07500EC4BA1 /* Sources */,
 				637E50781A79D07500EC4BA1 /* Frameworks */,
 				637E50791A79D07500EC4BA1 /* Resources */,
@@ -205,6 +242,7 @@
 			files = (
 				637E50711A79D07500EC4BA1 /* Main.storyboard in Resources */,
 				637E508C1A79D1A400EC4BA1 /* assets in Resources */,
+				63A3F40A20995CF600BFD2BD /* GoogleService-Info.plist in Resources */,
 				637E50761A79D07500EC4BA1 /* LaunchScreen.xib in Resources */,
 				637E50731A79D07500EC4BA1 /* Images.xcassets in Resources */,
 			);
@@ -218,6 +256,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6B4C3A622D34865C801E08FD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-feedit_iosTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B5FC96808964938B4A77B86 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-feedit_ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		637E505E1A79D07500EC4BA1 /* Sources */ = {
@@ -346,30 +423,37 @@
 		};
 		637E50861A79D07500EC4BA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 251DADFF49DF022CEECCDE7D /* Pods-feedit_ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D8A9Y93768;
 				INFOPLIST_FILE = feedit_ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xudafeng.feedit-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		637E50871A79D07500EC4BA1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA67FBB36AE80D0AFCA1386B /* Pods-feedit_ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D8A9Y93768;
 				INFOPLIST_FILE = feedit_ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xudafeng.feedit-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		637E50891A79D07500EC4BA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77F28747691C123023ED0B90 /* Pods-feedit_iosTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -389,6 +473,7 @@
 		};
 		637E508A1A79D07500EC4BA1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33E58A75E2ED72B8A2B58C29 /* Pods-feedit_iosTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
